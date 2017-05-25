@@ -46,9 +46,11 @@ max_day <- max(data[[2]])
 
 plot <- ggplot(data, aes(Day, Issues)) +
     geom_segment(aes(x=0, y=max_issue, xend=max_day, yend=0), color="#919191") +
-    geom_line() +
+    geom_line(aes(color=data[[1]]==-1)) +
+    scale_color_manual(values=c(c("black", rgb(0,0,0,0)), c(TRUE, FALSE))) +
     geom_hline(aes(yintercept=0)) +
     geom_vline(aes(xintercept=0)) +
-    scale_x_continuous(breaks=seq(0, 10, by=1)) +
-    scale_y_continuous(breaks=seq(0, 8, by=1), labels=comma) +
+    scale_x_continuous(limits=c(0,max_issue), breaks=seq(0, max_day, by=1)) +
+    scale_y_continuous(limits=c(0,max_day), breaks=seq(0, max_issue, by=1)) +
     fte_theme()
+plot
