@@ -40,13 +40,14 @@ fte_theme <- function() {
         theme(plot.margin = unit(c(0.35, 0.2, 0.3, 0.35), "cm"))
 }
 
-data <- read.csv("data.csv")
-max_issue <- max(data[[1]])
-max_day <- max(data[[2]])
+pdf("plots.pdf")
+data_2 <- read.csv("data_2.csv")
+max_issue <- max(data_2[[1]])
+max_day <- max(data_2[[2]])
 
-plot <- ggplot(data, aes(Day, Issues)) +
+plot <- ggplot(data_2, aes(Day, Issues)) +
     geom_segment(aes(x=0, y=max_issue, xend=max_day, yend=0), color="#919191") +
-    geom_line(aes(color=data[[1]]==-1)) +
+    geom_line(aes(color=data_2[[1]]==-1)) +
     scale_color_manual(values=c(c("black", rgb(0,0,0,0)), c(TRUE, FALSE))) +
     geom_hline(aes(yintercept=0)) +
     geom_vline(aes(xintercept=0)) +
@@ -54,3 +55,4 @@ plot <- ggplot(data, aes(Day, Issues)) +
     scale_y_continuous(limits=c(0,max_day), breaks=seq(0, max_issue, by=1)) +
     fte_theme()
 plot
+dev.off()
